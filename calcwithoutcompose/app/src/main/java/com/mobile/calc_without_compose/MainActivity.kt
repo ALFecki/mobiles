@@ -136,19 +136,19 @@ class MainActivity : AppCompatActivity() {
         }
         bsin.setOnClickListener {
             if (tvMain.text.last().isDigit()) {
-                (tvMain.text.toString() + "*sin").also { tvMain.text = it }
+                (tvMain.text.toString() + "*").also { tvMain.text = it }
             }
             (tvMain.text.toString() + "sin").also { tvMain.text = it }
         }
         bcos.setOnClickListener {
             if (tvMain.text.last().isDigit()) {
-                (tvMain.text.toString() + "*cos").also { tvMain.text = it }
+                (tvMain.text.toString() + "*").also { tvMain.text = it }
             }
             (tvMain.text.toString() + "cos").also { tvMain.text = it }
         }
         btan.setOnClickListener {
             if (tvMain.text.last().isDigit()) {
-                (tvMain.text.toString() + "*tan").also { tvMain.text = it }
+                (tvMain.text.toString() + "*").also { tvMain.text = it }
             }
             (tvMain.text.toString() + "tan").also { tvMain.text = it }
         }
