@@ -5,10 +5,16 @@ import android.widget.Button
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import kotlin.math.cos
+import kotlin.math.ln
+import kotlin.math.log10
+import kotlin.math.pow
+import kotlin.math.sin
+import kotlin.math.sqrt
+import kotlin.math.tan
 
 class MainActivity : AppCompatActivity() {
 
-    // creating variables for our text view and button
     lateinit var tvsec: TextView
     lateinit var tvMain: TextView
     lateinit var bac: Button
@@ -46,7 +52,6 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        // initializing all our variables.
         tvsec = findViewById(R.id.idTVSecondary)
         tvMain = findViewById(R.id.idTVprimary)
         bac = findViewById(R.id.bac)
@@ -80,20 +85,13 @@ class MainActivity : AppCompatActivity() {
         bdot = findViewById(R.id.bdot)
         bdiv = findViewById(R.id.bdiv)
 
-        // adding on click listener to our all buttons.
         b1.setOnClickListener {
-            // on below line we are appending
-            // the expression to our text view.
             tvMain.text = (tvMain.text.toString() + "1")
         }
         b2.setOnClickListener {
-            // on below line we are appending
-            // the expression to our text view.
             tvMain.text = (tvMain.text.toString() + "2")
         }
         b3.setOnClickListener {
-            // on below line we are appending
-            // the expression to our text view.
             tvMain.text = (tvMain.text.toString() + "3")
         }
         b4.setOnClickListener {
@@ -133,8 +131,6 @@ class MainActivity : AppCompatActivity() {
             tvMain.text = (tvMain.text.toString() + ")")
         }
         bpi.setOnClickListener {
-            // on clicking on pi button we are adding
-            // pi value as 3.142 to our current value.
             tvMain.text = (tvMain.text.toString() + "3.142")
             tvsec.text = (bpi.text.toString())
         }
@@ -158,19 +154,12 @@ class MainActivity : AppCompatActivity() {
         }
 
         bminus.setOnClickListener {
-            // on clicking on minus we are checking if
-            // the user has already a minus operation on screen.
-            // if minus operation is already present
-            // then we will not do anything.
             val str: String = tvMain.text.toString()
             if (!str.get(index = str.length - 1).equals("-")) {
                 tvMain.text = (tvMain.text.toString() + "-")
             }
         }
         bmul.setOnClickListener {
-            // if mul sign is not present in our
-            // text view then only we are adding
-            // the multiplication operator to it.
             val str: String = tvMain.text.toString()
             if (!str.get(index = str.length - 1).equals("*")) {
                 tvMain.text = (tvMain.text.toString() + "*")
@@ -178,72 +167,48 @@ class MainActivity : AppCompatActivity() {
         }
         bsqrt.setOnClickListener {
             if (tvMain.text.toString().isEmpty()) {
-                // if the entered number is empty we are displaying an error message.
                 Toast.makeText(this, "Please enter a valid number..", Toast.LENGTH_SHORT).show()
             } else {
                 val str: String = tvMain.text.toString()
-                // on below line we are calculation
-                // square root of the given number.
-                val r = Math.sqrt(str.toDouble())
-                // on below line we are converting our double
-                // to string and then setting it to text view.
-                val result = r.toString()
-                tvMain.setText(result)
+                val r = sqrt(str.toDouble())
+                tvMain.text = r.toString()
             }
         }
         bequal.setOnClickListener {
             val str: String = tvMain.text.toString()
-            // on below line we are calling an evaluate
-            // method to calculate the value of expressions.
-            val result: Double = evaluate(str)
-            // on below line we are getting result
-            // and setting it to text view.
-            val r = result.toString()
-            tvMain.setText(r)
+            tvMain.text = evaluate(str).toString()
             tvsec.text = str
         }
+
         bac.setOnClickListener {
-            // on clicking on ac button we are clearing
-            // our primary and secondary text view.
-            tvMain.setText("")
-            tvsec.setText("")
+            tvMain.text = ""
+            tvsec.text = ""
         }
         bc.setOnClickListener {
-            // on clicking on c button we are clearing
-            // the last character by checking the length.
             var str: String = tvMain.text.toString()
-            if (!str.equals("")) {
+            if (str != "") {
                 str = str.substring(0, str.length - 1)
                 tvMain.text = str
             }
         }
         bsquare.setOnClickListener {
             if (tvMain.text.toString().isEmpty()) {
-                // if the entered number is empty we are displaying an error message.
                 Toast.makeText(this, "Please enter a valid number..", Toast.LENGTH_SHORT).show()
             } else {
-                // on below line we are getting the expression and then calculating the square of the number
                 val d: Double = tvMain.getText().toString().toDouble()
-                // on below line we are calculating the square.
-                val square = d * d
-                // after calculating the square we
-                // are setting it to text view.
-                tvMain.setText(square.toString())
-                // on below line we are setting
-                // the d to secondary text view.
+
+                tvMain.text = d.pow(2.0).toString()
+
                 tvsec.text = "$d²"
             }
         }
         bfact.setOnClickListener {
             if (tvMain.text.toString().isEmpty()) {
-                // if the entered number is empty we are displaying an error message.
                 Toast.makeText(this, "Please enter a valid number..", Toast.LENGTH_SHORT).show()
             } else {
-                // on below line we are getting int value
-                // and calculating the factorial value of the entered number.
-                val value: Int = tvMain.text.toString().toInt()
+                val value: Int = tvMain.text.toString().toFloat().toInt()
                 val fact: Int = factorial(value)
-                tvMain.setText(fact.toString())
+                tvMain.text = fact.toString()
                 tvsec.text = "$value`!"
             }
 
@@ -251,31 +216,22 @@ class MainActivity : AppCompatActivity() {
 
     }
 
-    fun factorial(n: Int): Int {
-        // this method is use to find factorial
+    private fun factorial(n: Int): Int {
         return if (n == 1 || n == 0) 1 else n * factorial(n - 1)
     }
 
-    fun evaluate(str: String): Double {
+    private fun evaluate(str: String): Double {
         return object : Any() {
-            // on below line we are creating variable
-            // for tracking the position and char pos.
             var pos = -1
             var ch = 0
 
-            // below method is for moving to next character.
             fun nextChar() {
-                // on below line we are incrementing our position
-                // and moving it to next position.
-                ch = if (++pos < str.length) str[pos].toInt() else -1
+                ch = if (++pos < str.length) str[pos].code else -1
             }
 
-            // this method is use to check the extra space
-            // present int the expression and removing it.
             fun eat(charToEat: Int): Boolean {
-                while (ch == ' '.toInt()) nextChar()
-                // on below line we are checking the char pos
-                // if both is equal then we are returning it to true.
+                while (ch == ' '.code) nextChar()
+
                 if (ch == charToEat) {
                     nextChar()
                     return true
@@ -283,10 +239,6 @@ class MainActivity : AppCompatActivity() {
                 return false
             }
 
-            // below method is to parse our
-            // expression and to get the ans
-            // in this we are calling a parse
-            // expression method to calculate the value.
             fun parse(): Double {
                 nextChar()
                 val x = parseExpression()
@@ -294,90 +246,65 @@ class MainActivity : AppCompatActivity() {
                 return x
             }
 
-            // in this method we will only perform addition and
-            // subtraction operation on the expression.
             fun parseExpression(): Double {
                 var x = parseTerm()
                 while (true) {
-                    if (eat('+'.toInt())) x += parseTerm() // addition
-                    else if (eat('-'.toInt())) x -= parseTerm() // subtraction
+                    if (eat('+'.code)) x += parseTerm()
+                    else if (eat('-'.code)) x -= parseTerm()
                     else return x
                 }
             }
 
-            // in below method we will perform
-            // only multiplication and division operation.
             fun parseTerm(): Double {
                 var x = parseFactor()
                 while (true) {
-                    if (eat('*'.toInt())) x *= parseFactor() // multiplication
-                    else if (eat('/'.toInt())) x /= parseFactor() // division
+                    if (eat('*'.code)) x *= parseFactor()
+                    else if (eat('/'.code)) x /= parseFactor()
                     else return x
                 }
             }
 
-            // below method is use to parse the factor
+
             fun parseFactor(): Double {
-                //on below line we are checking for addition
-                // and subtraction and performing unary operations.
-                if (eat('+'.toInt())) return parseFactor() // unary plus
-                if (eat('-'.toInt())) return -parseFactor() // unary minus
-                // creating a double variable for ans.
+
+                if (eat('+'.code)) return parseFactor()
+                if (eat('-'.code)) return -parseFactor()
                 var x: Double
-                // on below line we are creating
-                // a variable for position.
+
                 val startPos = pos
-                // on below line we are checking
-                // for opening and closing parenthesis.
-                if (eat('('.toInt())) { // parentheses
+
+                if (eat('('.code)) {
                     x = parseExpression()
-                    eat(')'.toInt())
-                } else if (ch >= '0'.toInt() && ch <= '9'.toInt() || ch == '.'.toInt()) {
-                    // numbers
-                    while (ch >= '0'.toInt() && ch <= '9'.toInt() || ch == '.'.toInt()) nextChar()
-                    // on below line we are getting sub string from our string using start and pos.
+                    eat(')'.code)
+                } else if (ch >= '0'.code && ch <= '9'.code || ch == '.'.code) {
+
+                    while (ch >= '0'.code && ch <= '9'.code || ch == '.'.code) nextChar()
                     x = str.substring(startPos, pos).toDouble()
-                } else if (ch >= 'a'.toInt() && ch <= 'z'.toInt()) {
-                    // on below function we are checking for the operator in our expression.
-                    while (ch >= 'a'.toInt() && ch <= 'z'.toInt()) nextChar()
+                } else if (ch >= 'a'.code && ch <= 'z'.code) {
+                    while (ch >= 'a'.code && ch <= 'z'.code) nextChar()
                     val func = str.substring(startPos, pos)
-                    // calling a method to parse our factor.
                     x = parseFactor()
-                    // on below line we are checking for square root.
                     x =
-                        if (func == "sqrt") Math.sqrt(x)
-                        // on below line we are checking for sin function
-                        // and calculating sin function using Math class.
-                        else if (func == "sin") Math.sin(
-                            Math.toRadians(x)
-                            // on below line we are calculating the cos value
-                        ) else if (func == "cos") Math.cos(
-                            Math.toRadians(x)
-                            // on below line we are calculating
-                            // the tan value of our expression.
-                        ) else if (func == "tan")
-                            Math.tan(Math.toRadians(x))
-                        // on below line we are calculating
-                        // log value of the expression.
-                        else if (func == "log")
-                            Math.log10(x)
-                        // on below line we are calculating
-                        // ln value of expression.
-                        else if (func == "ln") Math.log(x)
-                        // f we get any error then
-                        // we simply return the exception.
-                        else throw RuntimeException(
-                            "Unknown function: $func"
-                        )
+                        when (func) {
+                            "sqrt" -> sqrt(x)
+                            "sin" -> sin(Math.toRadians(x))
+                            "cos" -> cos(Math.toRadians(x))
+
+                            "tan" -> tan(Math.toRadians(x))
+
+                            "log" -> log10(x)
+
+                            "ln" -> ln(x)
+                            else -> throw RuntimeException(
+                                "Unknown function: $func"
+                            )
+                        }
                 } else {
-                    // if the condition not satisfy then we are returning the exception
                     throw RuntimeException("Unexpected: " + ch.toChar())
                 }
-                // on below line we are calculating the power of the expression.
-                if (eat('^'.toInt())) x = Math.pow(x, parseFactor()) // exponentiation
+                if (eat('^'.code)) x = x.pow(parseFactor())
                 return x
             }
-            // at last calling a parse for our expression.
         }.parse()
     }
 }
