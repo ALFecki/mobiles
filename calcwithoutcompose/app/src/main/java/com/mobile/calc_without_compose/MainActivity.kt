@@ -135,12 +135,21 @@ class MainActivity : AppCompatActivity() {
             tvsec.text = (bpi.text.toString())
         }
         bsin.setOnClickListener {
+            if (tvMain.text.last().isDigit()) {
+                tvMain.text =(tvMain.text.toString() + "*sin")
+            }
             tvMain.text = (tvMain.text.toString() + "sin")
         }
         bcos.setOnClickListener {
+            if (tvMain.text.last().isDigit()) {
+                tvMain.text =(tvMain.text.toString() + "*cos")
+            }
             tvMain.text = (tvMain.text.toString() + "cos")
         }
         btan.setOnClickListener {
+            if (tvMain.text.last().isDigit()) {
+                tvMain.text =(tvMain.text.toString() + "*tan")
+            }
             tvMain.text = (tvMain.text.toString() + "tan")
         }
         binv.setOnClickListener {
@@ -154,14 +163,12 @@ class MainActivity : AppCompatActivity() {
         }
 
         bminus.setOnClickListener {
-            val str: String = tvMain.text.toString()
-            if (!str.get(index = str.length - 1).equals("-")) {
+            if (tvMain.text.toString().last() != '-') {
                 tvMain.text = (tvMain.text.toString() + "-")
             }
         }
         bmul.setOnClickListener {
-            val str: String = tvMain.text.toString()
-            if (!str.get(index = str.length - 1).equals("*")) {
+            if (tvMain.text.toString().last() != '*') {
                 tvMain.text = (tvMain.text.toString() + "*")
             }
         }
