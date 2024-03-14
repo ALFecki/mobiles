@@ -86,90 +86,90 @@ class MainActivity : AppCompatActivity() {
         bdiv = findViewById(R.id.bdiv)
 
         b1.setOnClickListener {
-            tvMain.text = (tvMain.text.toString() + "1")
+            (tvMain.text.toString() + "1").also { tvMain.text = it }
         }
         b2.setOnClickListener {
-            tvMain.text = (tvMain.text.toString() + "2")
+            (tvMain.text.toString() + "2").also { tvMain.text = it }
         }
         b3.setOnClickListener {
-            tvMain.text = (tvMain.text.toString() + "3")
+            (tvMain.text.toString() + "3").also { tvMain.text = it }
         }
         b4.setOnClickListener {
-            tvMain.text = (tvMain.text.toString() + "4")
+            (tvMain.text.toString() + "4").also { tvMain.text = it }
         }
         b5.setOnClickListener {
-            tvMain.text = (tvMain.text.toString() + "5")
+            (tvMain.text.toString() + "5").also { tvMain.text = it }
         }
         b6.setOnClickListener {
-            tvMain.text = (tvMain.text.toString() + "6")
+            (tvMain.text.toString() + "6").also { tvMain.text = it }
         }
         b7.setOnClickListener {
-            tvMain.text = (tvMain.text.toString() + "7")
+            (tvMain.text.toString() + "7").also { tvMain.text = it }
         }
         b8.setOnClickListener {
-            tvMain.text = (tvMain.text.toString() + "8")
+            (tvMain.text.toString() + "8").also { tvMain.text = it }
         }
         b9.setOnClickListener {
-            tvMain.text = (tvMain.text.toString() + "9")
+            (tvMain.text.toString() + "9").also { tvMain.text = it }
         }
         b0.setOnClickListener {
-            tvMain.text = (tvMain.text.toString() + "0")
+            (tvMain.text.toString() + "0").also { tvMain.text = it }
         }
         bdot.setOnClickListener {
-            tvMain.text = (tvMain.text.toString() + ".")
+            (tvMain.text.toString() + ".").also { tvMain.text = it }
         }
         bplus.setOnClickListener {
-            tvMain.text = (tvMain.text.toString() + "+")
+            (tvMain.text.toString() + "+").also { tvMain.text = it }
         }
         bdiv.setOnClickListener {
-            tvMain.text = (tvMain.text.toString() + "/")
+            (tvMain.text.toString() + "/").also { tvMain.text = it }
         }
         bbrac1.setOnClickListener {
-            tvMain.text = (tvMain.text.toString() + "(")
+            (tvMain.text.toString() + "(").also { tvMain.text = it }
         }
         bbrac2.setOnClickListener {
-            tvMain.text = (tvMain.text.toString() + ")")
+            (tvMain.text.toString() + ")").also { tvMain.text = it }
         }
         bpi.setOnClickListener {
-            tvMain.text = (tvMain.text.toString() + "3.142")
+            (tvMain.text.toString() + "3.142").also { tvMain.text = it }
             tvsec.text = (bpi.text.toString())
         }
         bsin.setOnClickListener {
             if (tvMain.text.last().isDigit()) {
-                tvMain.text =(tvMain.text.toString() + "*sin")
+                (tvMain.text.toString() + "*sin").also { tvMain.text = it }
             }
-            tvMain.text = (tvMain.text.toString() + "sin")
+            (tvMain.text.toString() + "sin").also { tvMain.text = it }
         }
         bcos.setOnClickListener {
             if (tvMain.text.last().isDigit()) {
-                tvMain.text =(tvMain.text.toString() + "*cos")
+                (tvMain.text.toString() + "*cos").also { tvMain.text = it }
             }
-            tvMain.text = (tvMain.text.toString() + "cos")
+            (tvMain.text.toString() + "cos").also { tvMain.text = it }
         }
         btan.setOnClickListener {
             if (tvMain.text.last().isDigit()) {
-                tvMain.text =(tvMain.text.toString() + "*tan")
+                (tvMain.text.toString() + "*tan").also { tvMain.text = it }
             }
-            tvMain.text = (tvMain.text.toString() + "tan")
+            (tvMain.text.toString() + "tan").also { tvMain.text = it }
         }
         binv.setOnClickListener {
-            tvMain.text = (tvMain.text.toString() + "^" + "(-1)")
+            (tvMain.text.toString() + "^" + "(-1)").also { tvMain.text = it }
         }
         bln.setOnClickListener {
-            tvMain.text = (tvMain.text.toString() + "ln")
+            (tvMain.text.toString() + "ln").also { tvMain.text = it }
         }
         blog.setOnClickListener {
-            tvMain.text = (tvMain.text.toString() + "log")
+            (tvMain.text.toString() + "log").also { tvMain.text = it }
         }
 
         bminus.setOnClickListener {
             if (tvMain.text.toString().last() != '-') {
-                tvMain.text = (tvMain.text.toString() + "-")
+                (tvMain.text.toString() + "-").also { tvMain.text = it }
             }
         }
         bmul.setOnClickListener {
             if (tvMain.text.toString().last() != '*') {
-                tvMain.text = (tvMain.text.toString() + "*")
+                (tvMain.text.toString() + "*").also { tvMain.text = it }
             }
         }
         bsqrt.setOnClickListener {
@@ -206,7 +206,7 @@ class MainActivity : AppCompatActivity() {
 
                 tvMain.text = d.pow(2.0).toString()
 
-                tvsec.text = "$d²"
+                "$d²".also { tvsec.text = it }
             }
         }
         bfact.setOnClickListener {
@@ -216,7 +216,7 @@ class MainActivity : AppCompatActivity() {
                 val value: Int = tvMain.text.toString().toFloat().toInt()
                 val fact: Int = factorial(value)
                 tvMain.text = fact.toString()
-                tvsec.text = "$value`!"
+                "$value`!".also { tvsec.text = it }
             }
 
         }
