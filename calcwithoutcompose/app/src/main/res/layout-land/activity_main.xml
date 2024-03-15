@@ -79,7 +79,7 @@
                             android:layout_height="match_parent"
                             android:layout_margin="3dp"
                             android:layout_weight="1"
-                            android:backgroundTint="@color/black_shade_2"
+                            android:backgroundTint="@color/black_shade_3"
                             android:padding="6dp"
                             android:text="AC"
                             android:textColor="@color/yellow"
@@ -91,7 +91,7 @@
                             android:layout_height="match_parent"
                             android:layout_margin="3dp"
                             android:layout_weight="1"
-                            android:backgroundTint="@color/black_shade_2"
+                            android:backgroundTint="@color/black_shade_3"
                             android:padding="6dp"
                             android:text="C"
                             android:textColor="@color/yellow"
@@ -104,7 +104,7 @@
                             android:layout_height="match_parent"
                             android:layout_margin="3dp"
                             android:layout_weight="1"
-                            android:backgroundTint="@color/black_shade_2"
+                            android:backgroundTint="@color/black_shade_3"
                             android:padding="6dp"
                             android:text="√"
                             android:textColor="#ffa500"
@@ -116,7 +116,7 @@
                             android:layout_height="match_parent"
                             android:layout_margin="3dp"
                             android:layout_weight="1"
-                            android:backgroundTint="@color/black_shade_2"
+                            android:backgroundTint="@color/black_shade_3"
                             android:padding="6dp"
                             android:text="sin"
                             android:textAllCaps="false"
@@ -129,7 +129,7 @@
                             android:layout_height="match_parent"
                             android:layout_margin="3dp"
                             android:layout_weight="1"
-                            android:backgroundTint="@color/black_shade_2"
+                            android:backgroundTint="@color/black_shade_3"
                             android:padding="6dp"
                             android:text="1/x"
                             android:textAllCaps="false"
@@ -142,10 +142,10 @@
                             android:layout_height="match_parent"
                             android:layout_margin="3dp"
                             android:layout_weight="1"
-                            android:backgroundTint="@color/black_shade_2"
+                            android:backgroundTint="@color/white"
                             android:padding="6dp"
                             android:text="÷"
-                            android:textColor="#ffa500"
+                            android:textColor="@color/black"
                             android:textSize="15sp" />
 
                     </LinearLayout>
@@ -170,10 +170,10 @@
                             android:layout_height="match_parent"
                             android:layout_margin="3dp"
                             android:layout_weight="1"
-                            android:backgroundTint="@color/black_shade_2"
+                            android:backgroundTint="@color/black"
                             android:padding="6dp"
                             android:text="7"
-                            android:textColor="#fff"
+                            android:textColor="@color/white"
                             android:textSize="15sp" />
 
                         <Button
@@ -182,10 +182,10 @@
                             android:layout_height="match_parent"
                             android:layout_margin="3dp"
                             android:layout_weight="1"
-                            android:backgroundTint="@color/black_shade_2"
+                            android:backgroundTint="@color/black"
                             android:padding="6dp"
                             android:text="8"
-                            android:textColor="#fff"
+                            android:textColor="@color/white"
                             android:textSize="15sp" />
 
                         <Button
@@ -194,10 +194,10 @@
                             android:layout_height="match_parent"
                             android:layout_margin="3dp"
                             android:layout_weight="1"
-                            android:backgroundTint="@color/black_shade_2"
+                            android:backgroundTint="@color/black"
                             android:padding="6dp"
                             android:text="9"
-                            android:textColor="#fff"
+                            android:textColor="@color/white"
                             android:textSize="15sp" />
 
                         <Button
@@ -206,7 +206,7 @@
                             android:layout_height="match_parent"
                             android:layout_margin="3dp"
                             android:layout_weight="1"
-                            android:backgroundTint="@color/black_shade_2"
+                            android:backgroundTint="@color/black_shade_3"
                             android:padding="6dp"
                             android:text="cos"
                             android:textAllCaps="false"
@@ -219,7 +219,7 @@
                             android:layout_height="match_parent"
                             android:layout_margin="3dp"
                             android:layout_weight="1"
-                            android:backgroundTint="@color/black_shade_2"
+                            android:backgroundTint="@color/black_shade_3"
                             android:padding="6dp"
                             android:text="x!"
                             android:textAllCaps="false"
@@ -233,10 +233,10 @@
                             android:layout_height="match_parent"
                             android:layout_margin="3dp"
                             android:layout_weight="1"
-                            android:backgroundTint="@color/black_shade_2"
+                            android:backgroundTint="@color/white"
                             android:padding="6dp"
                             android:text="×"
-                            android:textColor="#ffa500"
+                            android:textColor="@color/black"
                             android:textSize="15sp" />
 
 
@@ -263,10 +263,10 @@
                             android:layout_height="match_parent"
                             android:layout_margin="3dp"
                             android:layout_weight="1"
-                            android:backgroundTint="@color/black_shade_2"
+                            android:backgroundTint="@color/black"
                             android:padding="6dp"
                             android:text="4"
-                            android:textColor="#fff"
+                            android:textColor="@color/white"
                             android:textSize="15sp" />
 
                         <Button
@@ -275,10 +275,10 @@
                             android:layout_height="match_parent"
                             android:layout_margin="3dp"
                             android:layout_weight="1"
-                            android:backgroundTint="@color/black_shade_2"
+                            android:backgroundTint="@color/black"
                             android:padding="6dp"
                             android:text="5"
-                            android:textColor="#fff"
+                            android:textColor="@color/white"
                             android:textSize="15sp" />
 
                         <Button
@@ -287,10 +287,10 @@
                             android:layout_height="match_parent"
                             android:layout_margin="3dp"
                             android:layout_weight="1"
-                            android:backgroundTint="@color/black_shade_2"
+                            android:backgroundTint="@color/black"
                             android:padding="6dp"
                             android:text="6"
-                            android:textColor="#fff"
+                            android:textColor="@color/white"
                             android:textSize="15sp" />
 
                         <Button
@@ -299,7 +299,7 @@
                             android:layout_height="match_parent"
                             android:layout_margin="3dp"
                             android:layout_weight="1"
-                            android:backgroundTint="@color/black_shade_2"
+                            android:backgroundTint="@color/black_shade_3"
                             android:padding="6dp"
                             android:text="tan"
                             android:textAllCaps="false"
@@ -316,7 +316,7 @@
                             android:layout_height="match_parent"
                             android:layout_margin="3dp"
                             android:layout_weight="1"
-                            android:backgroundTint="@color/black_shade_2"
+                            android:backgroundTint="@color/black_shade_3"
                             android:padding="6dp"
                             android:text="x²"
                             android:textAllCaps="false"
@@ -329,10 +329,10 @@
                             android:layout_height="match_parent"
                             android:layout_margin="3dp"
                             android:layout_weight="1"
-                            android:backgroundTint="@color/black_shade_2"
+                            android:backgroundTint="@color/white"
                             android:padding="6dp"
                             android:text="-"
-                            android:textColor="#ffa500"
+                            android:textColor="@color/black"
                             android:textSize="15sp" />
 
                     </LinearLayout>
@@ -357,10 +357,10 @@
                             android:layout_height="match_parent"
                             android:layout_margin="3dp"
                             android:layout_weight="1"
-                            android:backgroundTint="@color/black_shade_2"
+                            android:backgroundTint="@color/black"
                             android:padding="6dp"
                             android:text="1"
-                            android:textColor="#fff"
+                            android:textColor="@color/white"
                             android:textSize="15sp" />
 
                         <Button
@@ -369,10 +369,10 @@
                             android:layout_height="match_parent"
                             android:layout_margin="3dp"
                             android:layout_weight="1"
-                            android:backgroundTint="@color/black_shade_2"
+                            android:backgroundTint="@color/black"
                             android:padding="6dp"
                             android:text="2"
-                            android:textColor="#fff"
+                            android:textColor="@color/white"
                             android:textSize="15sp" />
 
                         <Button
@@ -381,10 +381,10 @@
                             android:layout_height="match_parent"
                             android:layout_margin="3dp"
                             android:layout_weight="1"
-                            android:backgroundTint="@color/black_shade_2"
+                            android:backgroundTint="@color/black"
                             android:padding="6dp"
                             android:text="3"
-                            android:textColor="#fff"
+                            android:textColor="@color/white"
                             android:textSize="15sp" />
 
                         <Button
@@ -393,7 +393,7 @@
                             android:layout_height="match_parent"
                             android:layout_margin="3dp"
                             android:layout_weight="1"
-                            android:backgroundTint="@color/black_shade_2"
+                            android:backgroundTint="@color/black_shade_3"
                             android:padding="6dp"
                             android:text="log"
                             android:textAllCaps="false"
@@ -406,7 +406,7 @@
                             android:layout_height="match_parent"
                             android:layout_margin="3dp"
                             android:layout_weight="1"
-                            android:backgroundTint="@color/black_shade_2"
+                            android:backgroundTint="@color/black_shade_3"
                             android:padding="6dp"
                             android:text="("
                             android:textColor="#ffa500"
@@ -418,10 +418,10 @@
                             android:layout_height="match_parent"
                             android:layout_margin="3dp"
                             android:layout_weight="1"
-                            android:backgroundTint="@color/black_shade_2"
+                            android:backgroundTint="@color/white"
                             android:padding="6dp"
                             android:text="+"
-                            android:textColor="#ffa500"
+                            android:textColor="@color/black"
                             android:textSize="15sp" />
 
                     </LinearLayout>
@@ -446,10 +446,10 @@
                             android:layout_height="match_parent"
                             android:layout_margin="3dp"
                             android:layout_weight="1"
-                            android:backgroundTint="@color/black_shade_2"
+                            android:backgroundTint="@color/white"
                             android:padding="6dp"
                             android:text="π"
-                            android:textColor="#fff"
+                            android:textColor="@color/black"
                             android:textSize="15sp" />
 
                         <Button
@@ -458,10 +458,10 @@
                             android:layout_height="match_parent"
                             android:layout_margin="3dp"
                             android:layout_weight="1"
-                            android:backgroundTint="@color/black_shade_2"
+                            android:backgroundTint="@color/black"
                             android:padding="6dp"
                             android:text="0"
-                            android:textColor="#fff"
+                            android:textColor="@color/white"
                             android:textSize="15sp" />
 
                         <Button
@@ -470,10 +470,10 @@
                             android:layout_height="match_parent"
                             android:layout_margin="3dp"
                             android:layout_weight="1"
-                            android:backgroundTint="@color/black_shade_2"
+                            android:backgroundTint="@color/white"
                             android:padding="6dp"
                             android:text="."
-                            android:textColor="#fff"
+                            android:textColor="@color/black"
                             android:textSize="15sp" />
 
                         <Button
@@ -482,7 +482,7 @@
                             android:layout_height="match_parent"
                             android:layout_margin="3dp"
                             android:layout_weight="1"
-                            android:backgroundTint="@color/black_shade_2"
+                            android:backgroundTint="@color/black_shade_3"
                             android:padding="6dp"
                             android:text="ln"
                             android:textAllCaps="false"
@@ -495,7 +495,7 @@
                             android:layout_height="match_parent"
                             android:layout_margin="3dp"
                             android:layout_weight="1"
-                            android:backgroundTint="@color/black_shade_2"
+                            android:backgroundTint="@color/black_shade_3"
                             android:padding="6dp"
                             android:text=")"
                             android:textColor="#ffa500"
@@ -507,10 +507,10 @@
                             android:layout_height="match_parent"
                             android:layout_margin="3dp"
                             android:layout_weight="1"
-                            android:backgroundTint="@color/black_shade_2"
+                            android:backgroundTint="@color/white"
                             android:padding="6dp"
                             android:text="="
-                            android:textColor="#ffa500"
+                            android:textColor="@color/black"
                             android:textSize="15sp" />
 
                     </LinearLayout>
