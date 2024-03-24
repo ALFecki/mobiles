@@ -1,10 +1,12 @@
 package com.mobile.calc_without_compose
 
 import android.os.Bundle
+import android.text.method.ScrollingMovementMethod
 import android.widget.Button
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import java.util.Locale
 import kotlin.math.cos
 import kotlin.math.ln
 import kotlin.math.log10
@@ -12,6 +14,7 @@ import kotlin.math.pow
 import kotlin.math.sin
 import kotlin.math.sqrt
 import kotlin.math.tan
+
 
 class MainActivity : AppCompatActivity() {
 
@@ -53,7 +56,10 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
 
         tvsec = findViewById(R.id.idTVSecondary)
+        tvsec.movementMethod = ScrollingMovementMethod()
+
         tvMain = findViewById(R.id.idTVprimary)
+        tvMain.movementMethod = ScrollingMovementMethod()
         bac = findViewById(R.id.bac)
         bc = findViewById(R.id.bc)
         bbrac1 = findViewById(R.id.bbrac1)
@@ -131,8 +137,7 @@ class MainActivity : AppCompatActivity() {
             (tvMain.text.toString() + ")").also { tvMain.text = it }
         }
         bpi.setOnClickListener {
-            (tvMain.text.toString() + "3.142").also { tvMain.text = it }
-            tvsec.text = (bpi.text.toString())
+            (tvMain.text.toString() + "3.142").also { tvMain.text = it; tvsec.text = it }
         }
         bsin.setOnClickListener {
             if (tvMain.text.last().isDigit()) {
@@ -153,6 +158,10 @@ class MainActivity : AppCompatActivity() {
             (tvMain.text.toString() + "tan").also { tvMain.text = it }
         }
         binv.setOnClickListener {
+            if (tvMain.text.toString() == "Infinity") {
+                Toast.makeText(this, "Cannot make operations with infinity", Toast.LENGTH_SHORT).show()
+                return@setOnClickListener
+            }
             (tvMain.text.toString() + "^" + "(-1)").also { tvMain.text = it }
         }
         bln.setOnClickListener {
@@ -176,20 +185,33 @@ class MainActivity : AppCompatActivity() {
             if (tvMain.text.toString().isEmpty()) {
                 Toast.makeText(this, "Please enter a valid number..", Toast.LENGTH_SHORT).show()
             } else {
-                val str: String = tvMain.text.toString()
-                val r = sqrt(str.toDouble())
-                tvMain.text = r.toString()
+                try {
+                    if (tvMain.text.toString() == "Infinity") {
+                        Toast.makeText(this, "Cannot make operations with infinity", Toast.LENGTH_SHORT).show()
+                        return@setOnClickListener
+                    }
+                    val str: String = tvMain.text.toString()
+                    val r = sqrt(str.toDouble())
+                    val res = String.format(locale = Locale.US, "%d", r)
+                    tvMain.text = res
+                    tvsec.text = res
+                } catch (e: Exception){
+                    Toast.makeText(this, "Not valid number", Toast.LENGTH_SHORT).show()
+                }
             }
         }
         bequal.setOnClickListener {
             val str: String = tvMain.text.toString()
-            tvMain.text = evaluate(str).toString()
-            tvsec.text = str
+            val res = String.format(locale = Locale.US, "%f", evaluate(str))
+            tvMain.text = res
+            tvsec.text = res
         }
 
         bac.setOnClickListener {
             tvMain.text = ""
             tvsec.text = ""
+            tvMain.scrollTo(0,15)
+            tvsec.scrollTo(0,0)
         }
         bc.setOnClickListener {
             var str: String = tvMain.text.toString()
@@ -202,21 +224,43 @@ class MainActivity : AppCompatActivity() {
             if (tvMain.text.toString().isEmpty()) {
                 Toast.makeText(this, "Please enter a valid number..", Toast.LENGTH_SHORT).show()
             } else {
-                val d: Double = tvMain.getText().toString().toDouble()
+                try { if (tvMain.text.toString() == "Infinity") {
+                    Toast.makeText(this, "Cannot make operations with infinity", Toast.LENGTH_SHORT).show()
+                    return@setOnClickListener
+                }
+                    val d: Double = tvMain.getText().toString().toDouble()
+                    val res = String.format(locale = Locale.US, "%d", d.pow(2.0))
+                    tvMain.text = res
+                    tvsec.text = res
+                    "$d²".also { tvsec.text = it }
 
-                tvMain.text = d.pow(2.0).toString()
-
-                "$d²".also { tvsec.text = it }
+                } catch (e: Exception){
+                    Toast.makeText(this, "Not valid number", Toast.LENGTH_SHORT).show()
+                }
             }
         }
         bfact.setOnClickListener {
             if (tvMain.text.toString().isEmpty()) {
                 Toast.makeText(this, "Please enter a valid number..", Toast.LENGTH_SHORT).show()
             } else {
-                val value: Int = tvMain.text.toString().toFloat().toInt()
-                val fact: Int = factorial(value)
-                tvMain.text = fact.toString()
-                "$value`!".also { tvsec.text = it }
+                try {
+                    if (tvMain.text.toString() == "Infinity") {
+                        Toast.makeText(this, "Cannot make operations with infinity", Toast.LENGTH_SHORT).show()
+                        return@setOnClickListener
+                    }
+                    val value: Int = tvMain.text.toString().toFloat().toInt()
+                    if (value > 5000) {
+                        Toast.makeText(this, "Value is too big", Toast.LENGTH_SHORT).show()
+                        return@setOnClickListener
+                    }
+                    val fact: Int = factorial(value)
+                    val res = String.format(locale = Locale.US, "%d", fact)
+                    tvMain.text = res
+                    tvsec.text = res
+                    "$value`!".also { tvsec.text = it }
+                } catch (e: Exception){
+                    Toast.makeText(this, "Not valid number", Toast.LENGTH_SHORT).show()
+                }
             }
 
         }
@@ -224,7 +268,12 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun factorial(n: Int): Int {
-        return if (n == 1 || n == 0) 1 else n * factorial(n - 1)
+        return try {
+            if (n == 1 || n == 0) 1 else n * factorial(n - 1)
+        } catch (e: Exception) {
+            Toast.makeText(this, "Something went wrong", Toast.LENGTH_SHORT).show()
+            0
+        }
     }
 
     private fun evaluate(str: String): Double {
