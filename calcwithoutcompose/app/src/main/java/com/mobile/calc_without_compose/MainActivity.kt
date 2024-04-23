@@ -1,5 +1,11 @@
 package com.mobile.calc_without_compose
 
+import android.app.PendingIntent
+import android.content.Intent
+import android.content.IntentFilter
+import android.nfc.NfcAdapter
+import android.nfc.NfcAdapter.ACTION_TECH_DISCOVERED
+import android.nfc.tech.IsoDep
 import android.os.Bundle
 import android.text.method.ScrollingMovementMethod
 import android.widget.Button
@@ -17,6 +23,8 @@ import kotlin.math.tan
 
 
 class MainActivity : AppCompatActivity() {
+
+    private var nfcAdapter: NfcAdapter? = null
 
     lateinit var tvsec: TextView
     lateinit var tvMain: TextView
@@ -54,6 +62,8 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+
+        this.nfcAdapter = NfcAdapter.getDefaultAdapter(this)?.let { it }
 
         tvsec = findViewById(R.id.idTVSecondary)
         tvsec.movementMethod = ScrollingMovementMethod()
@@ -201,6 +211,10 @@ class MainActivity : AppCompatActivity() {
             }
         }
         bequal.setOnClickListener {
+            if (tvMain.text.isEmpty()) {
+                Toast.makeText(this, "Not valid number", Toast.LENGTH_SHORT).show()
+                return@setOnClickListener
+            }
             val str: String = tvMain.text.toString()
             val res = String.format(locale = Locale.US, "%f", evaluate(str))
             tvMain.text = res
@@ -274,6 +288,34 @@ class MainActivity : AppCompatActivity() {
             Toast.makeText(this, "Something went wrong", Toast.LENGTH_SHORT).show()
             0
         }
+    }
+
+    override fun onResume() {
+        super.onResume()
+
+        NfcAdapter.getDefaultAdapter(this)?.let { nfcAdapter ->
+            val launchIntent = Intent(this, this.javaClass)
+            launchIntent.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP)
+
+            val pendingIntent = PendingIntent.getActivity(
+                this, 0, launchIntent,
+                PendingIntent.FLAG_CANCEL_CURRENT or PendingIntent.FLAG_IMMUTABLE
+            )
+
+            val filters = arrayOf(IntentFilter(ACTION_TECH_DISCOVERED))
+            val techTypes = arrayOf(arrayOf(IsoDep::class.java.name))
+
+            nfcAdapter.enableForegroundDispatch(
+                this, pendingIntent, filters, techTypes
+            )
+        }
+    }
+
+
+    override fun onNewIntent(intent: Intent?) {
+        super.onNewIntent(intent)
+        Toast.makeText(this, "NFC tag equal!", Toast.LENGTH_SHORT).show()
+        bequal.performClick()
     }
 
     private fun evaluate(str: String): Double {
