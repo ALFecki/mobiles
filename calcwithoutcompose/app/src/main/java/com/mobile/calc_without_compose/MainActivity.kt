@@ -13,6 +13,9 @@ import android.widget.Switch
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.app.AppCompatDelegate
+import com.google.firebase.Firebase
+import com.google.firebase.database.database
 import java.util.Locale
 import kotlin.math.cos
 import kotlin.math.ln
@@ -281,12 +284,27 @@ class MainActivity : AppCompatActivity() {
             }
 
         }
-        themeSwitch.setOnCheckedChangeListener { buttonView, isChecked ->
+        themeSwitch.setOnCheckedChangeListener { _, isChecked ->
+            val database = Firebase.database
+            val ref = database.getReference("theme")
             if (isChecked) {
+                AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
+                ref.setValue("dark")
+            } else {
+                AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
+                ref.setValue("light")
 
             }
         }
+        AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
 
+        val database = Firebase.database
+        val ref = database.getReference("theme")
+        ref.get().addOnSuccessListener {
+            if (it.value == "dark") {
+                themeSwitch.isChecked = true
+            }
+        }
     }
 
     private fun factorial(n: Int): Int {
