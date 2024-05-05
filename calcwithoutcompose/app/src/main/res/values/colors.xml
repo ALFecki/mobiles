@@ -12,7 +12,9 @@
     <color name="blac_shade_1">#292D36</color>
     <color name="black_shade_2">#272B33</color>
     <color name="black_shade_3">#22252D</color>
-    <color name="white_shade_1">#292D36</color>
+    <color name="w_shade_1">#C1C1C1</color>
+    <color name="w_shade_2">#8C8C8C</color>
+    <color name="w_shade_3">#515151</color>
     <color name="yellow">#ffa500</color>
 
 </resources>

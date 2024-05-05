@@ -5,7 +5,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/black_shade_3"
+    android:background="?colorPrimary"
     tools:context=".MainActivity"
     android:orientation="vertical">
 
@@ -29,7 +29,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:scrollbars = "horizontal"
-        android:background="?colorPrimary"
+        android:background="?colorOnPrimary"
         android:gravity="bottom"
         android:maxLines="1"
         android:padding="10dp"
@@ -124,7 +124,7 @@
                             android:backgroundTint="?colorPrimary"
                             android:padding="6dp"
                             android:text="("
-                            android:textColor="#ffa500"
+                            android:textColor="?android:textColor"
                             android:textSize="15sp" />
 
                         <Button
@@ -171,7 +171,7 @@
                         <Button
                             android:id="@+id/bcos"
                             android:layout_width="match_parent"
-                            android:layout_height="match_parent"
+                            android:layout_height="77dp"
                             android:layout_margin="3dp"
                             android:layout_weight="1"
                             android:backgroundTint="?colorPrimary"
