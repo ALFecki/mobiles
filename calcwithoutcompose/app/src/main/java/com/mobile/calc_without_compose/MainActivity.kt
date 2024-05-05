@@ -9,6 +9,7 @@ import android.nfc.tech.IsoDep
 import android.os.Bundle
 import android.text.method.ScrollingMovementMethod
 import android.widget.Button
+import android.widget.Switch
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
@@ -58,6 +59,7 @@ class MainActivity : AppCompatActivity() {
     lateinit var bequal: Button
     lateinit var bdot: Button
     lateinit var bdiv: Button
+    lateinit var themeSwitch: Switch
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -100,6 +102,7 @@ class MainActivity : AppCompatActivity() {
         bequal = findViewById(R.id.bequal)
         bdot = findViewById(R.id.bdot)
         bdiv = findViewById(R.id.bdiv)
+        themeSwitch = findViewById(R.id.idThemeSwitch)
 
         b1.setOnClickListener {
             (tvMain.text.toString() + "1").also { tvMain.text = it }
@@ -277,6 +280,11 @@ class MainActivity : AppCompatActivity() {
                 }
             }
 
+        }
+        themeSwitch.setOnCheckedChangeListener { buttonView, isChecked ->
+            if (isChecked) {
+
+            }
         }
 
     }
