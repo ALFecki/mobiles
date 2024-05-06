@@ -284,27 +284,38 @@ class MainActivity : AppCompatActivity() {
             }
 
         }
+        var isProcessingSwitch = false
+
         themeSwitch.setOnCheckedChangeListener { _, isChecked ->
-            val database = Firebase.database
-            val ref = database.getReference("theme")
+//            val database = Firebase.database
+//            val ref = database.getReference("theme")
+            if (isProcessingSwitch) {
+                return@setOnCheckedChangeListener
+            }
+            isProcessingSwitch = true
+
             if (isChecked) {
                 AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
-                ref.setValue("dark")
+                themeSwitch.isChecked = true
+//                ref.setValue("dark")
             } else {
                 AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
-                ref.setValue("light")
-
+                themeSwitch.isChecked = false
+//                ref.setValue("light")
             }
+
+            isProcessingSwitch = false
         }
+
         AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
-
-        val database = Firebase.database
-        val ref = database.getReference("theme")
-        ref.get().addOnSuccessListener {
-            if (it.value == "dark") {
-                themeSwitch.isChecked = true
-            }
-        }
+        themeSwitch.isChecked = false
+//        val database = Firebase.database
+//        val ref = database.getReference("theme")
+//        ref.get().addOnSuccessListener {
+//            if (it.value == "dark") {
+//                themeSwitch.isChecked = true
+//            }
+//        }
     }
 
     private fun factorial(n: Int): Int {
