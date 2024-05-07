@@ -289,22 +289,22 @@ class MainActivity : AppCompatActivity() {
         themeSwitch.setOnCheckedChangeListener { _, isChecked ->
 //            val database = Firebase.database
 //            val ref = database.getReference("theme")
-            if (isProcessingSwitch) {
-                return@setOnCheckedChangeListener
-            }
-            isProcessingSwitch = true
+//            if (isProcessingSwitch) {
+//                return@setOnCheckedChangeListener
+//            }
+//            isProcessingSwitch = true
 
             if (isChecked) {
                 AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
-                themeSwitch.isChecked = true
+//                themeSwitch.isChecked = true
 //                ref.setValue("dark")
             } else {
                 AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
-                themeSwitch.isChecked = false
+//                themeSwitch.isChecked = false
 //                ref.setValue("light")
             }
 
-            isProcessingSwitch = false
+//            isProcessingSwitch = false
         }
 
         AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
