@@ -8,6 +8,7 @@ import android.nfc.NfcAdapter.ACTION_TECH_DISCOVERED
 import android.nfc.tech.IsoDep
 import android.os.Bundle
 import android.text.method.ScrollingMovementMethod
+import android.util.Log
 import android.widget.Button
 import android.widget.Switch
 import android.widget.TextView
@@ -217,6 +218,8 @@ class MainActivity : AppCompatActivity() {
             }
         }
         bequal.setOnClickListener {
+            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
+
             if (tvMain.text.isEmpty()) {
                 Toast.makeText(this, "Not valid number", Toast.LENGTH_SHORT).show()
                 return@setOnClickListener
@@ -284,38 +287,33 @@ class MainActivity : AppCompatActivity() {
             }
 
         }
-        var isProcessingSwitch = false
 
         themeSwitch.setOnCheckedChangeListener { _, isChecked ->
-//            val database = Firebase.database
-//            val ref = database.getReference("theme")
-//            if (isProcessingSwitch) {
-//                return@setOnCheckedChangeListener
-//            }
-//            isProcessingSwitch = true
+            val database = Firebase.database
+            val ref = database.getReference("theme")
 
             if (isChecked) {
                 AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
-//                themeSwitch.isChecked = true
-//                ref.setValue("dark")
+                ref.setValue("dark")
             } else {
                 AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
-//                themeSwitch.isChecked = false
-//                ref.setValue("light")
+                ref.setValue("light")
             }
 
-//            isProcessingSwitch = false
         }
 
-        AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
-        themeSwitch.isChecked = false
-//        val database = Firebase.database
-//        val ref = database.getReference("theme")
-//        ref.get().addOnSuccessListener {
-//            if (it.value == "dark") {
-//                themeSwitch.isChecked = true
-//            }
-//        }
+        val database = Firebase.database
+        val ref = database.getReference("theme")
+        ref.get().addOnSuccessListener {
+            if (it.value == "dark") {
+                themeSwitch.isChecked = true
+            } else if (it.value == "light") {
+                themeSwitch.isChecked = false
+            }
+        }.addOnFailureListener{
+            Log.e("firebase", "Error getting data", it)
+            Toast.makeText(this@MainActivity, "Cannot get data from database: $it", Toast.LENGTH_SHORT).show()
+        }
     }
 
     private fun factorial(n: Int): Int {
