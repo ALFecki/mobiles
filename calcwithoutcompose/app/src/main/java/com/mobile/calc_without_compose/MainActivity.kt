@@ -1,5 +1,6 @@
 package com.mobile.calc_without_compose
 
+import android.annotation.SuppressLint
 import android.app.PendingIntent
 import android.content.Intent
 import android.content.IntentFilter
@@ -7,9 +8,12 @@ import android.nfc.NfcAdapter
 import android.nfc.NfcAdapter.ACTION_TECH_DISCOVERED
 import android.nfc.tech.IsoDep
 import android.os.Bundle
+import android.provider.Settings.Secure
 import android.text.method.ScrollingMovementMethod
 import android.util.Log
+import android.widget.ArrayAdapter
 import android.widget.Button
+import android.widget.Spinner
 import android.widget.Switch
 import android.widget.TextView
 import android.widget.Toast
@@ -17,6 +21,9 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDelegate
 import com.google.firebase.Firebase
 import com.google.firebase.database.database
+import com.google.gson.Gson
+import org.json.JSONArray
+import org.json.JSONObject
 import java.util.Locale
 import kotlin.math.cos
 import kotlin.math.ln
@@ -64,7 +71,12 @@ class MainActivity : AppCompatActivity() {
     lateinit var bdot: Button
     lateinit var bdiv: Button
     lateinit var themeSwitch: Switch
+    lateinit var historyList: Spinner
+    lateinit var historyMap: MutableMap<String, String>
+    lateinit var android_id: String
 
+
+    @SuppressLint("HardwareIds")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
@@ -106,7 +118,22 @@ class MainActivity : AppCompatActivity() {
         bequal = findViewById(R.id.bequal)
         bdot = findViewById(R.id.bdot)
         bdiv = findViewById(R.id.bdiv)
+        historyList = findViewById(R.id.historyList)
+        val database = Firebase.database
+
         themeSwitch = findViewById(R.id.idThemeSwitch)
+
+        android_id = Secure.getString(contentResolver, Secure.ANDROID_ID)
+        val refHistory = database.getReference("$android_id/history")
+        refHistory.get().addOnSuccessListener {
+            val jsonString = it.value.toString()
+            Log.i("MAP_STRING", jsonString)
+            historyMap = if (jsonString != "null") JSONObject(jsonString).toMap().toMutableMap() else mutableMapOf()
+            val entriesArray: Array<String> = historyMap.map { (key, value) -> "$key=$value" }.toTypedArray()
+            historyList.adapter = ArrayAdapter(this, android.R.layout.simple_spinner_dropdown_item, entriesArray)
+
+            Log.i("MAP", historyMap.toString())
+        }
 
         b1.setOnClickListener {
             (tvMain.text.toString() + "1").also { tvMain.text = it }
@@ -226,6 +253,12 @@ class MainActivity : AppCompatActivity() {
             }
             val str: String = tvMain.text.toString()
             val res = String.format(locale = Locale.US, "%f", evaluate(str))
+            val ref = database.getReference("$android_id/history")
+
+            historyMap[res] = tvMain.text.toString()
+
+            ref.setValue(Gson().toJson(historyMap))
+
             tvMain.text = res
             tvsec.text = res
         }
@@ -289,8 +322,7 @@ class MainActivity : AppCompatActivity() {
         }
 
         themeSwitch.setOnCheckedChangeListener { _, isChecked ->
-            val database = Firebase.database
-            val ref = database.getReference("theme")
+            val ref = database.getReference("$android_id/theme")
 
             if (isChecked) {
                 AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
@@ -302,8 +334,8 @@ class MainActivity : AppCompatActivity() {
 
         }
 
-        val database = Firebase.database
-        val ref = database.getReference("theme")
+
+        val ref = database.getReference("$android_id/theme")
         ref.get().addOnSuccessListener {
             if (it.value == "dark") {
                 themeSwitch.isChecked = true
@@ -439,5 +471,18 @@ class MainActivity : AppCompatActivity() {
                 return x
             }
         }.parse()
+    }
+
+    fun JSONObject.toMap(): Map<String, String> = keys().asSequence().associateWith {
+        when (val value = this[it]) {
+            is JSONArray -> {
+                val map = (0 until value.length()).associate { Pair(it.toString(), value[it]) }
+                JSONObject(map).toMap().values.toList()
+            }
+
+            is JSONObject -> value.toMap()
+            JSONObject.NULL -> null
+            else            -> value
+        }.toString()
     }
 }
