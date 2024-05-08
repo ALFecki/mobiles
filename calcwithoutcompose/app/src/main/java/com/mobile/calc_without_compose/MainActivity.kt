@@ -366,21 +366,6 @@ class MainActivity : AppCompatActivity() {
             Toast.makeText(this@MainActivity, "Cannot get data from database: $it", Toast.LENGTH_SHORT).show()
         }
 
-        FirebaseMessaging.getInstance().token.addOnCompleteListener(OnCompleteListener { task ->
-            if (!task.isSuccessful) {
-                Log.w("FIREBASE", "Fetching FCM registration token failed", task.exception)
-                return@OnCompleteListener
-            }
-
-            // Get new FCM registration token
-            val token = task.result
-
-            // Log and toast
-//            val msg = getString(1, token)
-            Log.d("FIREBASE", token)
-            Toast.makeText(baseContext, token, Toast.LENGTH_SHORT).show()
-        })
-
     }
 
     private fun factorial(n: Int): Int {

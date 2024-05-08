@@ -35,24 +35,15 @@ class SetPassword: AppCompatActivity() {
     private val authenticationCallback: BiometricPrompt.AuthenticationCallback
         get() = @RequiresApi(Build.VERSION_CODES.P)
         object : BiometricPrompt.AuthenticationCallback() {
-            // here we need to implement two methods
-            // onAuthenticationError and onAuthenticationSucceeded
-            // If the fingerprint is not recognized by the app it will call
-            // onAuthenticationError and show a toast
             override fun onAuthenticationError(errorCode: Int, errString: CharSequence?) {
                 super.onAuthenticationError(errorCode, errString)
                 notifyUser("Authentication Error : $errString")
             }
 
-            // If the fingerprint is recognized by the app then it will call
-            // onAuthenticationSucceeded and show a toast that Authentication has Succeed
-            // Here you can also start a new activity after that
             override fun onAuthenticationSucceeded(result: BiometricPrompt.AuthenticationResult?) {
                 super.onAuthenticationSucceeded(result)
                 notifyUser("Authentication Succeeded")
                 sendToMain()
-
-                // or start a new Activity
 
             }
         }
@@ -64,6 +55,7 @@ class SetPassword: AppCompatActivity() {
         val passwordView = findViewById<EditText>(R.id.password)
         val save = findViewById<Button>(R.id.save)
         val biometric = findViewById<Button>(R.id.bBiometric)
+        val reset = findViewById<Button>(R.id.resetPassword)
         save.setOnClickListener {
                 val password = passwordView.getText().toString()
 
@@ -98,7 +90,30 @@ class SetPassword: AppCompatActivity() {
                 Toast.makeText(this@SetPassword, "Cannot get data from database: $it", Toast.LENGTH_SHORT).show()
             }
         }
+
         checkBiometricSupport()
+
+        reset.setOnClickListener {
+            val password = passwordView.getText().toString()
+
+            if (password.isEmpty()) {
+                passwordView.error = "Password required"
+                return@setOnClickListener
+            }
+
+            if (password.contains(" ")) {
+                passwordView.error = "Don't support space"
+                return@setOnClickListener
+            }
+
+            if (password.length < 4 || password.length > 4) {
+                passwordView.error = "Support 4 digint password"
+                return@setOnClickListener
+            }
+            ref.setValue(password)
+            notifyUser("Password successfully changed!")
+            biometric.performClick()
+        }
         biometric.setOnClickListener {
             val biometricPrompt = BiometricPrompt.Builder(this)
                 .setTitle("Authenticate to Calculator")
