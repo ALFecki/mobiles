@@ -77,6 +77,7 @@ class SetPassword: AppCompatActivity() {
             ref.get().addOnSuccessListener {
                 if (it.value == null) {
                     ref.setValue(password)
+                    notifyUser("Password added!")
                     sendToMain()
                     return@addOnSuccessListener
                 }

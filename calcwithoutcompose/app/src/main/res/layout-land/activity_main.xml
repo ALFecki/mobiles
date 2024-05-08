@@ -5,55 +5,103 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/black_shade_3"
+    android:background="?colorPrimary"
     tools:context=".MainActivity">
-
-    <TextView
-        android:id="@+id/idTVSecondary"
+    <Toolbar
         android:layout_width="match_parent"
-        android:layout_height="40dp"
-        android:scrollbars = "horizontal"
-        android:background="@color/black_shade_3"
-        android:gravity="bottom"
-        android:maxLines="1"
-        android:padding="10dp"
-        android:paddingTop="30dp"
-        android:text=""
-        android:textAlignment="viewEnd"
-        android:textColor="@color/white"
-        android:textSize="15sp"
-        tools:ignore="RtlCompat" />
+        android:layout_height="wrap_content"
+        android:minHeight="?attr/actionBarSize"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:minHeight="?attr/actionBarSize"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+
+            <Switch
+                android:id="@+id/idThemeSwitch"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:checked="?customBoolean" />
+
+            <Button
+                android:id="@+id/historyBtn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="end"
+                android:backgroundTint="?colorOnPrimary"
+                android:baselineAligned="false"
+                android:text="History"
+                android:textColor="?colorOnSecondary">
+
+            </Button>
+
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/btnNotification"
+                android:backgroundTint="?colorOnPrimary"
+                android:text="Send notification"
+                android:textColor="?colorOnSecondary">
+
+            </Button>
+
+            <TextView
+                android:id="@+id/idTVSecondary"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:background="?colorOnPrimary"
+                android:gravity="bottom"
+                android:maxLines="1"
+                android:padding="10dp"
+                android:paddingTop="30dp"
+                android:scrollbars="horizontal"
+                android:text=""
+                android:textAlignment="viewEnd"
+                android:textColor="?colorOnSecondary"
+                android:textSize="15sp"
+                tools:ignore="RtlCompat" />
+
+        </LinearLayout>
+    </Toolbar>
 
     <TextView
         android:id="@+id/idTVprimary"
         android:layout_width="match_parent"
-        android:scrollbars = "horizontal"
         android:layout_height="70dp"
         android:layout_below="@id/idTVSecondary"
-        android:background="@color/black_shade_3"
+        android:layout_marginTop="43dp"
+        android:background="?colorPrimary"
         android:gravity="bottom"
         android:maxLines="1"
         android:padding="10dp"
+        android:scrollbars="horizontal"
         android:text=""
         android:textAlignment="viewEnd"
-        android:textColor="#fff"
+        android:textColor="?colorOnSecondary"
         android:textSize="50sp"
         tools:ignore="RtlCompat" />
 
     <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="274dp"
         android:layout_below="@id/idTVprimary"
-        android:background="@color/blac_shade_1"
+        android:background="?colorOnPrimary"
         app:cardCornerRadius="4dp"
         app:cardElevation="2dp">
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:layout_weight="7"
 
-            android:background="@color/blac_shade_1"
+            android:background="?colorOnPrimary"
             android:orientation="vertical">
 
             <LinearLayout
@@ -81,7 +129,7 @@
                             android:layout_height="match_parent"
                             android:layout_margin="3dp"
                             android:layout_weight="1"
-                            android:backgroundTint="@color/black_shade_3"
+                            android:backgroundTint="?colorPrimary"
                             android:padding="6dp"
                             android:text="AC"
                             android:textColor="@color/yellow"
@@ -93,7 +141,7 @@
                             android:layout_height="match_parent"
                             android:layout_margin="3dp"
                             android:layout_weight="1"
-                            android:backgroundTint="@color/black_shade_3"
+                            android:backgroundTint="?colorPrimary"
                             android:padding="6dp"
                             android:text="C"
                             android:textColor="@color/yellow"
@@ -106,10 +154,10 @@
                             android:layout_height="match_parent"
                             android:layout_margin="3dp"
                             android:layout_weight="1"
-                            android:backgroundTint="@color/black_shade_3"
+                            android:backgroundTint="?colorPrimary"
                             android:padding="6dp"
                             android:text="√"
-                            android:textColor="#ffa500"
+                            android:textColor="?android:textColor"
                             android:textSize="15sp" />
 
                         <Button
@@ -118,11 +166,11 @@
                             android:layout_height="match_parent"
                             android:layout_margin="3dp"
                             android:layout_weight="1"
-                            android:backgroundTint="@color/black_shade_3"
+                            android:backgroundTint="?colorPrimary"
                             android:padding="6dp"
                             android:text="sin"
                             android:textAllCaps="false"
-                            android:textColor="#ffa500"
+                            android:textColor="?android:textColor"
                             android:textSize="15sp" />
 
                         <Button
@@ -131,11 +179,11 @@
                             android:layout_height="match_parent"
                             android:layout_margin="3dp"
                             android:layout_weight="1"
-                            android:backgroundTint="@color/black_shade_3"
+                            android:backgroundTint="?colorPrimary"
                             android:padding="6dp"
                             android:text="1/x"
                             android:textAllCaps="false"
-                            android:textColor="#ffa500"
+                            android:textColor="?android:textColor"
                             android:textSize="15sp" />
 
                         <Button
@@ -144,10 +192,10 @@
                             android:layout_height="match_parent"
                             android:layout_margin="3dp"
                             android:layout_weight="1"
-                            android:backgroundTint="@color/white"
+                            android:backgroundTint="?colorOnSecondary"
                             android:padding="6dp"
                             android:text="÷"
-                            android:textColor="@color/black"
+                            android:textColor="?colorSecondary"
                             android:textSize="15sp" />
 
                     </LinearLayout>
@@ -172,10 +220,10 @@
                             android:layout_height="match_parent"
                             android:layout_margin="3dp"
                             android:layout_weight="1"
-                            android:backgroundTint="@color/black"
+                            android:backgroundTint="?colorSecondary"
                             android:padding="6dp"
                             android:text="7"
-                            android:textColor="@color/white"
+                            android:textColor="?colorOnSecondary"
                             android:textSize="15sp" />
 
                         <Button
@@ -184,10 +232,10 @@
                             android:layout_height="match_parent"
                             android:layout_margin="3dp"
                             android:layout_weight="1"
-                            android:backgroundTint="@color/black"
+                            android:backgroundTint="?colorSecondary"
                             android:padding="6dp"
                             android:text="8"
-                            android:textColor="@color/white"
+                            android:textColor="?colorOnSecondary"
                             android:textSize="15sp" />
 
                         <Button
@@ -196,10 +244,10 @@
                             android:layout_height="match_parent"
                             android:layout_margin="3dp"
                             android:layout_weight="1"
-                            android:backgroundTint="@color/black"
+                            android:backgroundTint="?colorSecondary"
                             android:padding="6dp"
                             android:text="9"
-                            android:textColor="@color/white"
+                            android:textColor="?colorOnSecondary"
                             android:textSize="15sp" />
 
                         <Button
@@ -208,11 +256,11 @@
                             android:layout_height="match_parent"
                             android:layout_margin="3dp"
                             android:layout_weight="1"
-                            android:backgroundTint="@color/black_shade_3"
+                            android:backgroundTint="?colorPrimary"
                             android:padding="6dp"
                             android:text="cos"
                             android:textAllCaps="false"
-                            android:textColor="#ffa500"
+                            android:textColor="?android:textColor"
                             android:textSize="15sp" />
 
                         <Button
@@ -221,11 +269,11 @@
                             android:layout_height="match_parent"
                             android:layout_margin="3dp"
                             android:layout_weight="1"
-                            android:backgroundTint="@color/black_shade_3"
+                            android:backgroundTint="?colorPrimary"
                             android:padding="6dp"
                             android:text="x!"
                             android:textAllCaps="false"
-                            android:textColor="#ffa500"
+                            android:textColor="?android:textColor"
                             android:textSize="15sp" />
 
 
@@ -235,12 +283,11 @@
                             android:layout_height="match_parent"
                             android:layout_margin="3dp"
                             android:layout_weight="1"
-                            android:backgroundTint="@color/white"
+                            android:backgroundTint="?colorOnSecondary"
                             android:padding="6dp"
                             android:text="×"
-                            android:textColor="@color/black"
+                            android:textColor="?colorSecondary"
                             android:textSize="15sp" />
-
 
 
                     </LinearLayout>
@@ -265,10 +312,10 @@
                             android:layout_height="match_parent"
                             android:layout_margin="3dp"
                             android:layout_weight="1"
-                            android:backgroundTint="@color/black"
+                            android:backgroundTint="?colorSecondary"
                             android:padding="6dp"
                             android:text="4"
-                            android:textColor="@color/white"
+                            android:textColor="?colorOnSecondary"
                             android:textSize="15sp" />
 
                         <Button
@@ -277,10 +324,10 @@
                             android:layout_height="match_parent"
                             android:layout_margin="3dp"
                             android:layout_weight="1"
-                            android:backgroundTint="@color/black"
+                            android:backgroundTint="?colorSecondary"
                             android:padding="6dp"
                             android:text="5"
-                            android:textColor="@color/white"
+                            android:textColor="?colorOnSecondary"
                             android:textSize="15sp" />
 
                         <Button
@@ -289,10 +336,10 @@
                             android:layout_height="match_parent"
                             android:layout_margin="3dp"
                             android:layout_weight="1"
-                            android:backgroundTint="@color/black"
+                            android:backgroundTint="?colorSecondary"
                             android:padding="6dp"
                             android:text="6"
-                            android:textColor="@color/white"
+                            android:textColor="?colorOnSecondary"
                             android:textSize="15sp" />
 
                         <Button
@@ -301,15 +348,12 @@
                             android:layout_height="match_parent"
                             android:layout_margin="3dp"
                             android:layout_weight="1"
-                            android:backgroundTint="@color/black_shade_3"
+                            android:backgroundTint="?colorPrimary"
                             android:padding="6dp"
                             android:text="tan"
                             android:textAllCaps="false"
-                            android:textColor="#ffa500"
+                            android:textColor="?android:textColor"
                             android:textSize="15sp" />
-
-
-
 
 
                         <Button
@@ -318,11 +362,11 @@
                             android:layout_height="match_parent"
                             android:layout_margin="3dp"
                             android:layout_weight="1"
-                            android:backgroundTint="@color/black_shade_3"
+                            android:backgroundTint="?colorPrimary"
                             android:padding="6dp"
                             android:text="x²"
                             android:textAllCaps="false"
-                            android:textColor="#ffa500"
+                            android:textColor="?android:textColor"
                             android:textSize="15sp" />
 
                         <Button
@@ -331,10 +375,10 @@
                             android:layout_height="match_parent"
                             android:layout_margin="3dp"
                             android:layout_weight="1"
-                            android:backgroundTint="@color/white"
+                            android:backgroundTint="?colorOnSecondary"
                             android:padding="6dp"
                             android:text="-"
-                            android:textColor="@color/black"
+                            android:textColor="?colorSecondary"
                             android:textSize="15sp" />
 
                     </LinearLayout>
@@ -359,10 +403,10 @@
                             android:layout_height="match_parent"
                             android:layout_margin="3dp"
                             android:layout_weight="1"
-                            android:backgroundTint="@color/black"
+                            android:backgroundTint="?colorSecondary"
                             android:padding="6dp"
                             android:text="1"
-                            android:textColor="@color/white"
+                            android:textColor="?colorOnSecondary"
                             android:textSize="15sp" />
 
                         <Button
@@ -371,10 +415,10 @@
                             android:layout_height="match_parent"
                             android:layout_margin="3dp"
                             android:layout_weight="1"
-                            android:backgroundTint="@color/black"
+                            android:backgroundTint="?colorSecondary"
                             android:padding="6dp"
                             android:text="2"
-                            android:textColor="@color/white"
+                            android:textColor="?colorOnSecondary"
                             android:textSize="15sp" />
 
                         <Button
@@ -383,10 +427,10 @@
                             android:layout_height="match_parent"
                             android:layout_margin="3dp"
                             android:layout_weight="1"
-                            android:backgroundTint="@color/black"
+                            android:backgroundTint="?colorSecondary"
                             android:padding="6dp"
                             android:text="3"
-                            android:textColor="@color/white"
+                            android:textColor="?colorOnSecondary"
                             android:textSize="15sp" />
 
                         <Button
@@ -395,11 +439,11 @@
                             android:layout_height="match_parent"
                             android:layout_margin="3dp"
                             android:layout_weight="1"
-                            android:backgroundTint="@color/black_shade_3"
+                            android:backgroundTint="?colorPrimary"
                             android:padding="6dp"
                             android:text="log"
                             android:textAllCaps="false"
-                            android:textColor="#ffa500"
+                            android:textColor="?android:textColor"
                             android:textSize="15sp" />
 
                         <Button
@@ -408,10 +452,10 @@
                             android:layout_height="match_parent"
                             android:layout_margin="3dp"
                             android:layout_weight="1"
-                            android:backgroundTint="@color/black_shade_3"
+                            android:backgroundTint="?colorPrimary"
                             android:padding="6dp"
                             android:text="("
-                            android:textColor="#ffa500"
+                            android:textColor="?android:textColor"
                             android:textSize="15sp" />
 
                         <Button
@@ -420,10 +464,10 @@
                             android:layout_height="match_parent"
                             android:layout_margin="3dp"
                             android:layout_weight="1"
-                            android:backgroundTint="@color/white"
+                            android:backgroundTint="?colorOnSecondary"
                             android:padding="6dp"
                             android:text="+"
-                            android:textColor="@color/black"
+                            android:textColor="?colorSecondary"
                             android:textSize="15sp" />
 
                     </LinearLayout>
@@ -448,10 +492,10 @@
                             android:layout_height="match_parent"
                             android:layout_margin="3dp"
                             android:layout_weight="1"
-                            android:backgroundTint="@color/white"
+                            android:backgroundTint="?colorOnSecondary"
                             android:padding="6dp"
                             android:text="π"
-                            android:textColor="@color/black"
+                            android:textColor="?colorSecondary"
                             android:textSize="15sp" />
 
                         <Button
@@ -460,10 +504,10 @@
                             android:layout_height="match_parent"
                             android:layout_margin="3dp"
                             android:layout_weight="1"
-                            android:backgroundTint="@color/black"
+                            android:backgroundTint="?colorSecondary"
                             android:padding="6dp"
                             android:text="0"
-                            android:textColor="@color/white"
+                            android:textColor="?colorOnSecondary"
                             android:textSize="15sp" />
 
                         <Button
@@ -472,10 +516,10 @@
                             android:layout_height="match_parent"
                             android:layout_margin="3dp"
                             android:layout_weight="1"
-                            android:backgroundTint="@color/white"
+                            android:backgroundTint="?colorOnSecondary"
                             android:padding="6dp"
                             android:text="."
-                            android:textColor="@color/black"
+                            android:textColor="?colorSecondary"
                             android:textSize="15sp" />
 
                         <Button
@@ -484,11 +528,11 @@
                             android:layout_height="match_parent"
                             android:layout_margin="3dp"
                             android:layout_weight="1"
-                            android:backgroundTint="@color/black_shade_3"
+                            android:backgroundTint="?colorPrimary"
                             android:padding="6dp"
                             android:text="ln"
                             android:textAllCaps="false"
-                            android:textColor="#ffa500"
+                            android:textColor="?android:textColor"
                             android:textSize="15sp" />
 
                         <Button
@@ -497,10 +541,10 @@
                             android:layout_height="match_parent"
                             android:layout_margin="3dp"
                             android:layout_weight="1"
-                            android:backgroundTint="@color/black_shade_3"
+                            android:backgroundTint="?colorPrimary"
                             android:padding="6dp"
                             android:text=")"
-                            android:textColor="#ffa500"
+                            android:textColor="?android:textColor"
                             android:textSize="15sp" />
 
                         <Button
@@ -509,10 +553,10 @@
                             android:layout_height="match_parent"
                             android:layout_margin="3dp"
                             android:layout_weight="1"
-                            android:backgroundTint="@color/white"
+                            android:backgroundTint="?colorOnSecondary"
                             android:padding="6dp"
                             android:text="="
-                            android:textColor="@color/black"
+                            android:textColor="?colorSecondary"
                             android:textSize="15sp" />
 
                     </LinearLayout>
