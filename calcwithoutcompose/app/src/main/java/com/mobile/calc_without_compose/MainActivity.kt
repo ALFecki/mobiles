@@ -12,6 +12,7 @@ import android.nfc.NfcAdapter.ACTION_TECH_DISCOVERED
 import android.nfc.tech.IsoDep
 import android.os.Build
 import android.os.Bundle
+import android.preference.PreferenceManager
 import android.provider.Settings.Secure
 import android.text.method.ScrollingMovementMethod
 import android.util.Log
@@ -19,21 +20,17 @@ import android.view.View
 import android.widget.ArrayAdapter
 import android.widget.Button
 import android.widget.ListView
-import android.widget.Spinner
 import android.widget.Switch
 import android.widget.TextView
 import android.widget.Toast
-import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDelegate
-import androidx.core.app.NotificationCompat
-import androidx.lifecycle.Observer
 import com.google.android.gms.tasks.OnCompleteListener
 import com.google.firebase.Firebase
 import com.google.firebase.database.database
 import com.google.firebase.messaging.FirebaseMessaging
 import com.google.gson.Gson
-import com.mobile.calc_without_compose.viewmodel.MainViewModel
+import com.mobile.calc_without_compose.auth.SetPassword
 import org.json.JSONArray
 import org.json.JSONObject
 import java.util.Locale
@@ -440,6 +437,14 @@ class MainActivity : AppCompatActivity() {
             nfcAdapter.enableForegroundDispatch(
                 this, pendingIntent, filters, techTypes
             )
+        }
+    }
+
+    override fun onStart() {
+        super.onStart()
+        if (!intent.getBooleanExtra("isAuthorized", false)) {
+            startActivity(Intent(this@MainActivity, SetPassword::class.java))
+            finish()
         }
     }
 
