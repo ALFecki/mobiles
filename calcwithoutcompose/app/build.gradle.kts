@@ -37,20 +37,31 @@ android {
 }
 
 dependencies {
-
     implementation(libs.appcompat)
     implementation(libs.material)
     implementation(libs.activity)
     implementation(libs.constraintlayout)
-    implementation("androidx.core:core-ktx:+")
+    implementation(libs.core.ktx)
+    implementation(platform(libs.firebase.bom))
+
     implementation(libs.firebase.database)
     testImplementation(libs.junit)
+    implementation(platform(libs.kotlin.bom))
     androidTestImplementation(libs.ext.junit)
     androidTestImplementation(libs.espresso.core)
-    implementation(platform("com.google.firebase:firebase-bom:32.8.1"))
-    implementation("com.google.firebase:firebase-auth")
-    implementation("com.google.android.gms:play-services-auth:21.1.0")
-    implementation("com.google.code.gson:gson:2.10.1")
+    implementation(libs.play.services.auth)
+    implementation(libs.gson)
+    implementation(libs.firebase.messaging)
+    implementation(libs.firebase.analytics)
+
+    implementation (libs.retrofit)
+    implementation (libs.converter.gson)
+    implementation (libs.logging.interceptor)
+    implementation (libs.converter.scalars)
+    implementation(libs.hilt.lifecycle.viewmodel)
+    implementation (libs.lifecycle.viewmodel.ktx)
+    implementation (libs.fragment.ktx)
+
 
 
 }

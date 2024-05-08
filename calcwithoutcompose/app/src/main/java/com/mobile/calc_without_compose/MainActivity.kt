@@ -1,27 +1,39 @@
 package com.mobile.calc_without_compose
 
 import android.annotation.SuppressLint
+import android.app.NotificationChannel
+import android.app.NotificationManager
 import android.app.PendingIntent
 import android.content.Intent
 import android.content.IntentFilter
+import android.graphics.Color
 import android.nfc.NfcAdapter
 import android.nfc.NfcAdapter.ACTION_TECH_DISCOVERED
 import android.nfc.tech.IsoDep
+import android.os.Build
 import android.os.Bundle
 import android.provider.Settings.Secure
 import android.text.method.ScrollingMovementMethod
 import android.util.Log
+import android.view.View
 import android.widget.ArrayAdapter
 import android.widget.Button
+import android.widget.ListView
 import android.widget.Spinner
 import android.widget.Switch
 import android.widget.TextView
 import android.widget.Toast
+import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDelegate
+import androidx.core.app.NotificationCompat
+import androidx.lifecycle.Observer
+import com.google.android.gms.tasks.OnCompleteListener
 import com.google.firebase.Firebase
 import com.google.firebase.database.database
+import com.google.firebase.messaging.FirebaseMessaging
 import com.google.gson.Gson
+import com.mobile.calc_without_compose.viewmodel.MainViewModel
 import org.json.JSONArray
 import org.json.JSONObject
 import java.util.Locale
@@ -71,15 +83,24 @@ class MainActivity : AppCompatActivity() {
     lateinit var bdot: Button
     lateinit var bdiv: Button
     lateinit var themeSwitch: Switch
-    lateinit var historyList: Spinner
+    lateinit var bHistory: Button
+    lateinit var bHistoryClose: Button
+    lateinit var historyList: ListView
     lateinit var historyMap: MutableMap<String, String>
     lateinit var android_id: String
+    lateinit var main_view: View
+    lateinit var history_view: View
+    lateinit var bNotification: Button
+//    private val mainViewModel: MainViewModel by viewModels()
 
 
-    @SuppressLint("HardwareIds")
+
+    @SuppressLint("HardwareIds", "InflateParams")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
+        main_view = layoutInflater.inflate(R.layout.activity_main, null)
+        history_view = layoutInflater.inflate(R.layout.history_layout, null)
+        setContentView(main_view)
 
         this.nfcAdapter = NfcAdapter.getDefaultAdapter(this)?.let { it }
 
@@ -118,8 +139,10 @@ class MainActivity : AppCompatActivity() {
         bequal = findViewById(R.id.bequal)
         bdot = findViewById(R.id.bdot)
         bdiv = findViewById(R.id.bdiv)
-        historyList = findViewById(R.id.historyList)
         val database = Firebase.database
+        bHistory = findViewById(R.id.historyBtn)
+        bNotification = findViewById(R.id.btnNotification)
+
 
         themeSwitch = findViewById(R.id.idThemeSwitch)
 
@@ -129,8 +152,6 @@ class MainActivity : AppCompatActivity() {
             val jsonString = it.value.toString()
             Log.i("MAP_STRING", jsonString)
             historyMap = if (jsonString != "null") JSONObject(jsonString).toMap().toMutableMap() else mutableMapOf()
-            val entriesArray: Array<String> = historyMap.map { (key, value) -> "$key=$value" }.toTypedArray()
-            historyList.adapter = ArrayAdapter(this, android.R.layout.simple_spinner_dropdown_item, entriesArray)
 
             Log.i("MAP", historyMap.toString())
         }
@@ -245,8 +266,6 @@ class MainActivity : AppCompatActivity() {
             }
         }
         bequal.setOnClickListener {
-            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
-
             if (tvMain.text.isEmpty()) {
                 Toast.makeText(this, "Not valid number", Toast.LENGTH_SHORT).show()
                 return@setOnClickListener
@@ -333,6 +352,9 @@ class MainActivity : AppCompatActivity() {
             }
 
         }
+        bNotification.setOnClickListener {
+//            doRegisterUser()
+        }
 
 
         val ref = database.getReference("$android_id/theme")
@@ -346,6 +368,22 @@ class MainActivity : AppCompatActivity() {
             Log.e("firebase", "Error getting data", it)
             Toast.makeText(this@MainActivity, "Cannot get data from database: $it", Toast.LENGTH_SHORT).show()
         }
+
+        FirebaseMessaging.getInstance().token.addOnCompleteListener(OnCompleteListener { task ->
+            if (!task.isSuccessful) {
+                Log.w("FIREBASE", "Fetching FCM registration token failed", task.exception)
+                return@OnCompleteListener
+            }
+
+            // Get new FCM registration token
+            val token = task.result
+
+            // Log and toast
+//            val msg = getString(1, token)
+            Log.d("FIREBASE", token)
+            Toast.makeText(baseContext, token, Toast.LENGTH_SHORT).show()
+        })
+
     }
 
     private fun factorial(n: Int): Int {
@@ -359,6 +397,33 @@ class MainActivity : AppCompatActivity() {
 
     override fun onResume() {
         super.onResume()
+
+        bHistory.setOnClickListener {
+            setContentView(history_view)
+            historyList = findViewById(R.id.historyList)
+            val entriesArray: Array<String> = historyMap.map { (key, value) -> "$key=$value" }.toTypedArray()
+            historyList.adapter = ArrayAdapter(this, android.R.layout.simple_list_item_1, entriesArray)
+            bHistoryClose = findViewById(R.id.historyCloseBtn)
+            bHistoryClose.setOnClickListener {
+                setContentView(main_view)
+            }
+        }
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            // Create the NotificationChannel.
+            val name = getString(R.string.name)
+            val descriptionText = getString(R.string.notification)
+            val importance = NotificationManager.IMPORTANCE_DEFAULT
+            val mChannel = NotificationChannel("app_channel", name, importance)
+            mChannel.description = descriptionText
+            mChannel.enableLights(true);
+            mChannel.lightColor = Color.BLUE;
+            // Register the channel with the system. You can't change the importance
+            // or other notification behaviors after this.
+            val notificationManager = getSystemService(NOTIFICATION_SERVICE) as NotificationManager
+            notificationManager.createNotificationChannel(mChannel)
+        }
+
 
         NfcAdapter.getDefaultAdapter(this)?.let { nfcAdapter ->
             val launchIntent = Intent(this, this.javaClass)
@@ -485,4 +550,76 @@ class MainActivity : AppCompatActivity() {
             else            -> value
         }.toString()
     }
+
+//    private fun doRegisterUser(){
+//
+//        //get user notification token provided by firebase
+//        FirebaseMessaging.getInstance().token.addOnCompleteListener(OnCompleteListener { task ->
+//            if (!task.isSuccessful) {
+//                Log.w("token_failed", "Fetching FCM registration token failed", task.exception)
+//                return@OnCompleteListener
+//            }
+//
+//            // Get new FCM registration token
+//            val notificationToken = task.result
+//            val nameString = "Test"
+//
+//            //store the user name
+//            mainViewModel.doSendNotification(nameString, notificationToken!!)
+//            setupObserver()
+//        })
+//
+//    }
+//
+//    private fun setupObserver(){
+//
+//        //observe data obtained
+//        mainViewModel.sendNotification.observe(this, Observer {
+//
+//            when(it.status){
+//
+//                Resource.Status.SUCCESS ->{
+//
+//                    if(it.data?.status == "success"){
+//
+//                        //stop progress bar
+////                        loadingProgress!!.visibility = View.GONE
+////                        buttonSend!!.visibility = View.VISIBLE
+//
+//                        //show toast message
+//                        Toast.makeText(this, "Notification sent successfully", Toast.LENGTH_LONG).show()
+//                    }
+//
+//                    else if(it.data?.status == "fail"){
+//
+//                        //stop progress bar
+////                        loadingProgress!!.visibility = View.GONE
+////                        buttonSend!!.visibility = View.VISIBLE
+//
+//                        //something went wrong, show error message
+//                        Toast.makeText(this, it.message, Toast.LENGTH_LONG).show()
+//
+//                    }
+//
+//
+//                }
+//                Resource.Status.ERROR -> {
+//
+//                    Toast.makeText(this, it.message, Toast.LENGTH_LONG).show()
+//
+////                    loading!!.visibility = View.GONE
+////                    buttonSend!!.visibility = View.VISIBLE
+//
+//                }
+//                Resource.Status.LOADING -> {
+//
+////                    loading!!.visibility = View.VISIBLE
+////                    buttonSend!!.visibility = View.GONE
+//
+//                }
+//            }
+//
+//        })
+//
+//    }
 }

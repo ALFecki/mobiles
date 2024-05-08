@@ -17,6 +17,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -26,31 +27,33 @@
             app:layout_constraintTop_toTopOf="parent">
 
 
-        <Switch
-            android:id="@+id/idThemeSwitch"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:checked="?customBoolean">
-
-        </Switch>
-
-        <Button
-            android:id="@+id/historyBtn"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="History"
-            android:backgroundTint="?colorOnPrimary"
-            android:textColor="?colorOnSecondary"
-            android:layout_gravity="end">
-
-        </Button>
-
-            <Spinner
-                android:id="@+id/historyList"
+            <Switch
+                android:id="@+id/idThemeSwitch"
                 android:layout_width="wrap_content"
-                android:layout_height="match_parent">
+                android:layout_height="wrap_content"
+                android:checked="?customBoolean" />
 
-            </Spinner>
+            <Button
+                android:id="@+id/historyBtn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="end"
+                android:backgroundTint="?colorOnPrimary"
+                android:baselineAligned="false"
+                android:text="History"
+                android:textColor="?colorOnSecondary">
+
+            </Button>
+
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/btnNotification"
+                android:backgroundTint="?colorOnPrimary"
+                android:text="Send notification"
+                android:textColor="?colorOnSecondary">
+
+            </Button>
 
         </LinearLayout>
     </Toolbar>
